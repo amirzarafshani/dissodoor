@@ -12,6 +12,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 import { hot } from 'react-hot-loader/root';
+import Layout from 'components/common/Layout/Loadable';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -19,6 +20,9 @@ import '../../components/common/styles/tailwind.css';
 import '../../components/common/styles/main.scss';
 
 function App() {
+  const MainLayout = (props) => {
+    return <Layout {...props}>{props.children}</Layout>;
+  };
   return (
     <div>
       <Helmet
@@ -28,10 +32,12 @@ function App() {
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
 
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
+      <MainLayout>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="" component={NotFoundPage} />
+        </Switch>
+      </MainLayout>
     </div>
   );
 }

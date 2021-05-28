@@ -1,23 +1,22 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { login, logout } from '../actions/authActions';
+import { setLang } from '../actions/langActions';
 
-const withAuth = (WrappedComponent) => {
+const withLang = (WrappedComponent) => {
   return connect(mapStateToProps, mapDispatchToProps)(WrappedComponent);
 };
 
-export default withAuth;
+export default withLang;
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      login,
-      logout,
+      setLang,
     },
     dispatch,
   );
 
 function mapStateToProps(state) {
-  const { user } = state.authReducer;
-  return { user };
+  const { lang } = state.langReducer;
+  return { lang };
 }
