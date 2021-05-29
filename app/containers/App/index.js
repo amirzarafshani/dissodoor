@@ -19,10 +19,18 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import '../../components/common/styles/tailwind.css';
 import '../../components/common/styles/main.scss';
 
+export const MainLayout = ({ component: Component, user, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => (
+      <Layout {...props}>
+        <Component {...props} />
+      </Layout>
+    )}
+  />
+);
+
 function App() {
-  const MainLayout = (props) => {
-    return <Layout {...props}>{props.children}</Layout>;
-  };
   return (
     <div>
       <Helmet
@@ -32,12 +40,10 @@ function App() {
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
 
-      <MainLayout>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="" component={NotFoundPage} />
-        </Switch>
-      </MainLayout>
+      <Switch>
+        <MainLayout exact path="/:lang?" component={HomePage} />
+        <Route path="" component={NotFoundPage} />
+      </Switch>
     </div>
   );
 }
